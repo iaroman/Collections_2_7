@@ -35,12 +35,12 @@ public class EmployeeController {
     public List<Employee> sortListEmployee(@RequestParam Employee.Department dep){
         return employeeService.allListEmployee(dep);
     }
-    @GetMapping("/departments/max-salary")
-        public Employee findMaxSalary(@RequestParam Employee.Department dep) {
-            return employeeService.maxSalary(dep);
-    }
     @GetMapping("/departments/min-salary")
     public Employee findMinSalary(@RequestParam Employee.Department dep) {
         return employeeService.minSalary(dep);
+    }
+    @GetMapping("/departments/max-salary")
+    public Employee findMaxSalary(@RequestParam Employee.Department dep) {
+        return employeeService.maxSalary(dep);
     }
 }

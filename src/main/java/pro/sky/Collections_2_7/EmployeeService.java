@@ -48,14 +48,6 @@ public class EmployeeService {
                 .collect(Collectors.toList());
         return employeeList;
     }
-    public Employee maxSalary(Employee.Department department) {
-        Employee max = employeeMap.values()
-                .stream()
-                .filter(e -> e.getDepartment() == department)
-                .max(Employee::compare)
-                .get();
-        return max;
-    }
     public Employee minSalary(Employee.Department department) {
         Employee min = employeeMap.values()
                 .stream()
@@ -63,5 +55,13 @@ public class EmployeeService {
                 .min(Employee::compare)
                 .get();
         return min;
+    }
+    public Employee maxSalary(Employee.Department department) {
+        Employee max = employeeMap.values()
+                .stream()
+                .filter(e -> e.getDepartment() == department)
+                .max(Employee::compare)
+                .get();
+        return max;
     }
 }
