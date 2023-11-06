@@ -1,6 +1,7 @@
 package pro.sky.Collections_2_7;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -15,8 +16,8 @@ public class EmployeeController {
         return employeeService.getEmployeeMap();
     }
     @GetMapping("/add")
-    public Employee addEmployee(@RequestParam String lastName, @RequestParam String firstName) {
-        return employeeService.addEmployeeMap(lastName, firstName);
+    public Employee addEmployee(@RequestParam String lastName, @RequestParam String firstName, @RequestParam int salary, Employee.Department department) {
+        return employeeService.addEmployeeMap(lastName, firstName, salary, department);
     }
     @GetMapping("/remove")
     public Employee remove(@RequestParam String lastName, @RequestParam String firstName) {
@@ -25,5 +26,21 @@ public class EmployeeController {
     @GetMapping("/find")
     public Employee find(@RequestParam String lastName, @RequestParam String firstName) {
         return employeeService.findEmployeeMap(lastName, firstName);
+    }
+    @GetMapping("/departments/all")
+    public List<Employee> sortListEmployee(){
+        return employeeService.allListEmployee();
+    }
+    @GetMapping("/departments")
+    public List<Employee> sortListEmployee(@RequestParam Employee.Department dep){
+        return employeeService.allListEmployee(dep);
+    }
+    @GetMapping("/departments/max-salary")
+        public Employee findMaxSalary(@RequestParam Employee.Department dep) {
+            return employeeService.maxSalary(dep);
+    }
+    @GetMapping("/departments/min-salary")
+    public Employee findMinSalary(@RequestParam Employee.Department dep) {
+        return employeeService.minSalary(dep);
     }
 }
