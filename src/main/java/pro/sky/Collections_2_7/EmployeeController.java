@@ -28,7 +28,7 @@ public class EmployeeController {
         return employeeService.findEmployeeMap(lastName, firstName);
     }
     @GetMapping("/departments/all")
-    public List<Employee> sortListEmployee(){
+    public Map<Employee.Department, List<Employee>> sortListEmployee(){
         return employeeService.allListEmployee();
     }
     @GetMapping("/departments")

@@ -41,11 +41,10 @@ public class EmployeeService {
                 .collect(Collectors.toList());
         return employeeList;
     }
-    public List<Employee> allListEmployee() {
-        List<Employee> employeeList = employeeMap.values()
+    public Map<Employee.Department, List<Employee>> allListEmployee() {
+        Map<Employee.Department, List<Employee>> employeeList = employeeMap.values()
                 .stream()
-                .sorted(Comparator.comparing(Employee::getDepartment))
-                .collect(Collectors.toList());
+                .collect(Collectors.groupingBy(Employee::getDepartment));
         return employeeList;
     }
     public Employee minSalary(Employee.Department department) {
