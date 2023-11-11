@@ -1,4 +1,5 @@
 package pro.sky.Collections_2_7;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -16,6 +17,8 @@ public class EmployeeService {
     }
     public Employee addEmployeeMap(String lastName, String firstName, int salary, Employee.Department department) {
         String key = lastName + firstName;
+        if (!StringUtils.isAlpha(key))
+            throw new EmployeeNameNoStringException("Ошибка ввода имени или фамилии");
         if (employeeMap.containsKey(key))
             throw new EmployeeAlreadyAddedException("Этот сотрудник в базе есть");
         Employee employee = new Employee(lastName, firstName, salary, department);
@@ -24,12 +27,16 @@ public class EmployeeService {
     }
     public Employee deleteEmployeeMap(String lastName, String firstName) {
          String key = lastName + firstName;
+        if (!StringUtils.isAlpha(key))
+            throw new EmployeeNameNoStringException("Ошибка ввода имени или фамилии");
         if (employeeMap.containsKey(key))
             return employeeMap.remove(key);
         throw new EmployeeNotFoundException("Этот сотрудник не найден");
     }
     public Employee findEmployeeMap(String lastName, String firstName) {
         String key = lastName + firstName;
+        if (!StringUtils.isAlpha(key))
+            throw new EmployeeNameNoStringException("Ошибка ввода имени или фамилии");
         if (employeeMap.containsKey(key))
             return employeeMap.get(key);
         throw new EmployeeNotFoundException("Этот сотрудник не найден");
@@ -41,20 +48,11 @@ public class EmployeeService {
                 .collect(Collectors.toList());
         return employeeList;
     }
-    public List<Employee> allListEmployee() {
-        List<Employee> employeeList = employeeMap.values()
+    public Map<Employee.Department, List<Employee>> allListEmployee() {
+        Map<Employee.Department, List<Employee>> employeeList = employeeMap.values()
                 .stream()
-                .sorted(Comparator.comparing(Employee::getDepartment))
-                .collect(Collectors.toList());
+                .collect(Collectors.groupingBy(Employee::getDepartment));
         return employeeList;
-    }
-    public Employee maxSalary(Employee.Department department) {
-        Employee max = employeeMap.values()
-                .stream()
-                .filter(e -> e.getDepartment() == department)
-                .max(Employee::compare)
-                .get();
-        return max;
     }
     public Employee minSalary(Employee.Department department) {
         Employee min = employeeMap.values()
@@ -63,5 +61,13 @@ public class EmployeeService {
                 .min(Employee::compare)
                 .get();
         return min;
+    }
+    public Employee maxSalary(Employee.Department department) {
+        Employee max = employeeMap.values()
+                .stream()
+                .filter(e -> e.getDepartment() == department)
+                .max(Employee::compare)
+                .get();
+        return max;
     }
 }
