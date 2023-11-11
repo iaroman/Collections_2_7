@@ -21,7 +21,7 @@ public class EmployeeService {
             throw new EmployeeNameNoStringException("Ошибка ввода имени или фамилии");
         if (employeeMap.containsKey(key))
             throw new EmployeeAlreadyAddedException("Этот сотрудник в базе есть");
-        Employee employee = new Employee(StringUtils.capitalize(lastName), StringUtils.capitalize(firstName), salary, department);
+        Employee employee = new Employee(lastName, firstName, salary, department);
         employeeMap.put(key, employee);
         return employee;
     }

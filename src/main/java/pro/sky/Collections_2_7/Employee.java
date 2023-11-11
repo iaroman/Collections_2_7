@@ -2,12 +2,9 @@ package pro.sky.Collections_2_7;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class Employee {
-    public static void main(String[] args) {
-        String st = "level";
-        System.out.println(StringUtils.isAlpha(st));
-    }
+import static org.apache.commons.lang3.StringUtils.*;
 
+public class Employee {
     private String lastName, firstName;
     private int salary;
     public enum Department {ONE, TWO, THREE, FOUR, FIVE};
@@ -15,8 +12,8 @@ public class Employee {
     static private int counter;
     private int id;
     public Employee(String lastName, String firstName, int salary, Department department) {
-        this.lastName = lastName;
-        this.firstName = firstName;
+        this.lastName = capitalize(lastName.toLowerCase());
+        this.firstName = capitalize(firstName.toLowerCase());
         this.salary = salary;
         this.department = department;
         id = ++counter;
