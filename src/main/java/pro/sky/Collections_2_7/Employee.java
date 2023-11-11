@@ -1,5 +1,13 @@
 package pro.sky.Collections_2_7;
+
+import org.apache.commons.lang3.StringUtils;
+
 public class Employee {
+    public static void main(String[] args) {
+        String st = "level";
+        System.out.println(StringUtils.isAlpha(st));
+    }
+
     private String lastName, firstName;
     private int salary;
     public enum Department {ONE, TWO, THREE, FOUR, FIVE};
